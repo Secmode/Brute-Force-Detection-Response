@@ -15,14 +15,14 @@ This lab is designed to **showcase SOC skills** for hiring managers, including d
 
 ---
 
-## Lab Setup
+## Lab Archtitecture
 
 | Component | Role | IP |
 |-----------|------|----|
-| Kali Linux | Attack Machine | 10.0.0.7 |
-| Windows Server 2022 | Target Machine | 10.0.0.6 |
+| Kali Linux | Simulated brute force Attempts using bash scripts| Attack Machine | 10.0.0.7 |
+| Windows Server 2022 | Domain Controller and RDP |Target Machine | 10.0.0.6 |
 | Ubuntu Server 1 | Fleet Server (Elastic Agent management) | 10.0.0.4 |
-| Ubuntu Server 2 | ELK Stack (ElasticSearch, Logstash, Kibana) | 10.0.0.5 |
+| Ubuntu Server 2 | ELK Stack (ElasticSearch, Logstash, Kibana) Centralized log collection and SIEM analytic| 10.0.0.5 |
 
 **Tools Used:** Hydra, xfreerdp, Elastic Agent, Auditd, Winlogbeat, Kibana Dashboards, Elastic Defender, Sysmon.
 
