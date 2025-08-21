@@ -56,21 +56,27 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 - **Outcome:** Elastic correlation rule flagged brute-force behavior. (Event ID 4625).
 <img width="1073" height="508" alt="image" src="https://github.com/user-attachments/assets/622653c3-fb74-4338-8373-40191759ae0c" />
 
-### 3. Successful RDP Login
-- **Command:** `xfreerdp /u:Administrator /p:"MONKEY@290cyber!" /v:10.0.0.6`
-- **Outcome:** Successful login confirmed in Kibana.
-📸 *Insert screenshot*
+### 3. Successful SSH Login via Brute-Force
+- **Command:** `hydra -l Administrator -P ./passlist.txt ssh://10.0.0.6`
+- **Outcome:** Outcome: Password cyber!2025- found; login successful. Confirmed in Kibana.
+<img width="1077" height="679" alt="image" src="https://github.com/user-attachments/assets/c4c4b7b4-8277-4224-96f1-24c606c0a34c" />
+
 
 ### 4. Elastic Integrations Setup
 - **Steps:** Installed and configured Elastic integrations to collect logs and telemetry from endpoints and servers..
 - **Integrations Used:** Elastic Agent, Elastic Defend, Fleet Server, Prebuilt Security Detection Rules, Elastic Synthetics
--
-- Alerts in Endpoint → Malware dashboard.
-📸 *Insert Malware dashboard screenshot*
+*<img width="1079" height="532" alt="image" src="https://github.com/user-attachments/assets/a18c6d05-f881-4778-be45-eef47eb048f6" />*
 
 ### 5. Privilege Escalation
-- **Steps:** Add testuser to Administrators group.
-- **Elastic Detection:** Event IDs 4732, 4672, .
+- **Steps:** A standard user account (testuser) was added to the Administrators group on the Windows Server, simulating privilege escalation by an attacker.
+- Observed Event IDs:
+  - 4624 – Successful logon (tracking the session used for escalation)
+  - 4672 – Special privileges assigned to new logon (indicates elevated rights)
+  - 4634 – Logoff event (previous session closed before escalation attempt)
+  - 4648 – Logon with explicit credentials (often seen during escalation attempts)
+  - 4728 – A member was added to a security-enabled global group (if you added to “Administrators” group)
+  - 4720 – New user account created (if you tested creating an account first)
+- **Elastic Detection:** Correlation rules and dashboards in Elastic SIEM captured the privilege escalation by mapping the sequence of logon events, assignment of special privileges, and group membership changes, .
 <img width="1075" height="500" alt="image" src="https://github.com/user-attachments/assets/a45eba50-0722-4592-a702-0be1306b204b" />
 
 
