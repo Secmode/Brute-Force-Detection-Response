@@ -1,5 +1,5 @@
 # Brute-Force-Detection-Response
-Elastic SIEM SOC Lab – Brute Force Attack Detection &amp; Response using Windows Server, Kali, and Ubuntu
+Elastic SIEM SOC Lab – Brute Force Attack Detection &amp; Response using Windows Server,Pfsense, Kali, and Ubuntu
 ## Overview
 This repository contains a **hands-on SOC lab** built using Elastic SIEM, Windows Server 2022, Kali Linux, and Ubuntu servers. It demonstrates **realistic attack scenarios**, detection rules, dashboards, and incident workflow documentation.
 
@@ -11,7 +11,7 @@ The lab covers:
 - Lateral movement
 - Dashboards & detection rules
 
-This lab is designed to **showcase SOC skills** for hiring managers, including detection engineering, log correlation, incident analysis, and workflow documentation.
+This lab is designed to **showcase My SOC skills** Which including detection engineering, log correlation, incident analysis, and workflow documentation.
 
 ---
 
@@ -19,14 +19,16 @@ This lab is designed to **showcase SOC skills** for hiring managers, including d
 
 | Component | Role | IP |
 |-----------|------|----|
-| Kali Linux | Simulated brute force Attempts using bash scripts| Attack Machine | 10.0.0.7 |
-| Windows Server 2022 | Domain Controller and RDP |Target Machine | 10.0.0.6 |
+|Pfsen |LAN DHCP Managment, Isolated Lab network |10.0.0.1/24 |
+| Kali Linux | Simulated brute force Attempts using bash scripts| 10.0.0.7 |
+| Windows Server 2022 | Domain Controller and RDP Target Machine| 10.0.0.6 |
 | Ubuntu Server 1 | Fleet Server (Elastic Agent management) | 10.0.0.4 |
 | Ubuntu Server 2 | ELK Stack (ElasticSearch, Logstash, Kibana) Centralized log collection and SIEM analytic| 10.0.0.5 |
 
-**Tools Used:** Hydra, xfreerdp, Elastic Agent, Auditd, Winlogbeat, Kibana Dashboards, Elastic Defender, Sysmon.
+**Tools Used:** Hydra, xfreerdp, Elastic Agent, Pfsense, Winlogbeat, Kibana Dashboards, Elastic Defender, Sysmon.
 
-📸 *Insert Lab Topology Screenshot*
+<img width="992" height="702" alt="image" src="https://github.com/user-attachments/assets/7d73cc16-f8f7-407a-a090-dd9c37a5555a" />
+
 
 ---
 
@@ -110,3 +112,5 @@ This lab shows end-to-end SOC capabilities:
 3. Document workflows and alerts
 4. Build dashboards and detection rules
 5. Demonstrate advanced SOC knowledge for hiring managers
+6. <img width="955" height="562" alt="image" src="https://github.com/user-attachments/assets/08d068e6-ce20-44d5-b4f5-791d87487a8a" />
+
