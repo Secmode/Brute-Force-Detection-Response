@@ -138,18 +138,32 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 
 ---
-## Elastic Detection Rules
+## Incident Response – pfSense Firewall Actions
 
-- **Brute Force Rule:** Threshold ≥5 failed logins in 5 minutes from the same IP.  
-- **Malware Rule:** Detect `process.name: "*eicar*"` or hash-based rules.  
-- **Privilege Escalation Rule:** Event IDs 4732, 4672, 4728.  
+**Action Taken (Containment & Mitigation):**
+
+- **Blocked Malicious IP:**  
+  Blocked SSH/RDP brute-force IP (`10.0.0.7`) in pfSense firewall to protect Windows Server (`10.0.0.6`), fulfilling MITRE T1110.001 containment recommendations.
+
+- **Subnet / Range Blocking:**  
+  Temporarily blocked suspicious IP ranges within LAN (`10.0.0.2 – 10.0.0.20`) to prevent lateral movement.
+- **Rate Limiting / Login Thresholds:**  
+  Configured pfSense to limit repeated SSH/RDP login attempts, preventing automated brute-force attacks.
+- **Port/Service Filtering:**  
+  Closed unused ports and limited critical services to trusted IPs only.
+- **Firewall Aliases for Threat Automation:**  
+  Created alias lists of known malicious IPs from Elastic SIEM to auto-block future attacks.
+- **Logging & Alerts:**  
+  Enabled detailed logging and alert notifications for all blocked connections for forensic analysis.
+- **Temporary Blocks & Quarantine:**  
+  Applied scheduled blocks for suspicious IPs, lifting automatically if no further attacks detected.
+- **Network Segmentation:**  
+  Isolated vulnerable Windows hosts using VLAN rules to contain potential compromises.
+- **Geo-IP Blocking:**  
+  Restricted access from regions not required for operations, reducing attack surface.
+
 
 ---
-## MITRE ATT&CK Defense Recommendations for T1110.001 – Password Guessing
-
-- **Brute Force Rule:** Threshold ≥5 failed logins in 5 minutes from the same IP.  
-- **Malware Rule:** Detect `process.name: "*eicar*"` or hash-based rules.  
-- **Privilege Escalation Rule:** Event IDs 4732, 4672, 4728.  
 
 ---
 
@@ -181,13 +195,6 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 ---
 
-## Portfolio Highlights
-This lab shows end-to-end SOC capabilities:
-1. Simulate attacks in a safe lab
-2. Detect & investigate using Elastic SIEM
-3. Document workflows and alerts
-4. Build dashboards and detection rules
-5. Demonstrate advanced SOC knowledge for hiring managers
 6. <img width="955" height="562" alt="image" src="https://github.com/user-attachments/assets/08d068e6-ce20-44d5-b4f5-791d87487a8a" />
 <img width="711" height="448" alt="image" src="https://github.com/user-attachments/assets/27f10842-f4a4-4d9c-9ffd-8b51313bac8c" />
 
