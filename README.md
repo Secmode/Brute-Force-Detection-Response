@@ -115,8 +115,27 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 ### MITRE ATT&CK Mapping  
 - **Technique:** [T1110 – Brute Force](https://attack.mitre.org/techniques/T1110/)  
 - **Sub-technique:** [T1110.001 – Password Guessing](https://attack.mitre.org/techniques/T1110/001/)  
-- **Tactic:** Credential Access  
+- **Tactic:** Credential Access
+  - **Defense / Mitigation:**
+  - [Account Use Policies M1036](https://attack.mitre.org/mitigations/M1036/)
+ – Limit login attempts, implement account lockouts
+   - [Password Policies (M1027)](https://attack.mitre.org/mitigations/M1027/)
+ – Enforce strong password complexity
+   - [Operating System Configuration (M1028)](https://attack.mitre.org/mitigations/M1028/)
+ – Restrict RDP, SSH, and VNC to authorized IPs using firewall rules.
+
+ 
 <img width="1910" height="981" alt="image" src="https://github.com/user-attachments/assets/1913f855-61d4-4f04-a747-35dd7ef61a51" />
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/a9960171-31f5-441d-955e-7ccd705d5d64" width="32%" />
+  <img src="https://github.com/user-attachments/assets/01801194-33fc-47d1-87e9-eaabf714d9df" width="32%" />
+  <img src="https://github.com/user-attachments/assets/15faedf1-c66f-4367-a311-3dfe6b0397fa" width="32%" />
+</p>
+
+
+
+
 
 ---
 ## Elastic Detection Rules
@@ -125,7 +144,12 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 - **Malware Rule:** Detect `process.name: "*eicar*"` or hash-based rules.  
 - **Privilege Escalation Rule:** Event IDs 4732, 4672, 4728.  
 
+---
+## MITRE ATT&CK Defense Recommendations for T1110.001 – Password Guessing
 
+- **Brute Force Rule:** Threshold ≥5 failed logins in 5 minutes from the same IP.  
+- **Malware Rule:** Detect `process.name: "*eicar*"` or hash-based rules.  
+- **Privilege Escalation Rule:** Event IDs 4732, 4672, 4728.  
 
 ---
 
@@ -143,6 +167,7 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 ## Skills Demonstrated
 - SIEM detection engineering (KQL)
 - Log correlation across Windows/Linux hosts
+- Build dashboards and detection rules
 - Incident workflow documentation
 - SOC workflow: Detect → Investigate → Respond → Document
 - Understanding of brute-force attacks, malware detection, privilege escalation, and lateral movement
@@ -152,10 +177,7 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 ---
 
 ## Next Steps
-- Expand malware simulations (EICAR + custom scripts)
-- Add lateral movement detection across multiple hosts
-- Build enriched dashboards combining multiple alerts
-- Prepare portfolio showcase for SOC roles
+-Currently working on the PFsense Firewall
 
 ---
 
