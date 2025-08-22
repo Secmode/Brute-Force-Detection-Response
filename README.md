@@ -37,6 +37,15 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 <img width="992" height="702" alt="image" src="https://github.com/user-attachments/assets/7d73cc16-f8f7-407a-a090-dd9c37a5555a" />
 
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/05b176ea-d624-4a8c-b078-7054c76a878a" width="400" />
+  <img src="https://github.com/user-attachments/assets/c53231a9-ea33-45ba-ac94-776c77d4cc6e" width="400" />
+</p>
+
+
+
+
+
 
 ---
 
@@ -85,27 +94,49 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 - **Elastic Detection:** Event IDs 4624 (logon), 4688 (process creation).
 📸 *Insert screenshot*
 
----
+### 3. Threat Hunting –  Elastic Detection 
+- **Detection Logic:** Multiple failed SSH login attempts from the same source IP ('source.ip') within a short time frame.
+   - **KQL Query:** `event.action: "logon-failed" AND winlog.event_id: 4625`
+   - **Detection Rule:** Threshold ≥ 5 failed SSH login attempts in 5 minutes from the same source IP.
+   - **Outcome:** Identified suspicious brute force attempts against account root from attacker IP `10.0.0.7 (Kali Linux).`
+   - Logs confirm repeated logon-failed actions on host WIN-DHNT661G6BP.
+     - **SOC Use Case:** Helps analysts hunt brute force attempts that bypass normal authentication rules and confirm malicious login activity
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/f77d8cad-3563-4ef5-aecc-0c7a3c80f998" width="300" />
+  <img src="https://github.com/user-attachments/assets/1b06fdcb-be9f-40a7-8c44-1b2895eb4d8b" width="300" />
+  <img src="https://github.com/user-attachments/assets/413c89f3-1a8a-4780-98b0-8a4e5aa6a736" width="300" />
+</p>
 
+
+
+<img width="970" height="435" alt="image" src="https://github.com/user-attachments/assets/efe479e3-a4f7-43e5-a1b3-ecb6812dd72c" />
+
+---
+### MITRE ATT&CK Mapping  
+- **Technique:** [T1110 – Brute Force](https://attack.mitre.org/techniques/T1110/)  
+- **Sub-technique:** [T1110.001 – Password Guessing](https://attack.mitre.org/techniques/T1110/001/)  
+- **Tactic:** Credential Access  
+<img width="1910" height="981" alt="image" src="https://github.com/user-attachments/assets/1913f855-61d4-4f04-a747-35dd7ef61a51" />
+
+---
 ## Elastic Detection Rules
 
 - **Brute Force Rule:** Threshold ≥5 failed logins in 5 minutes from the same IP.  
 - **Malware Rule:** Detect `process.name: "*eicar*"` or hash-based rules.  
 - **Privilege Escalation Rule:** Event IDs 4732, 4672, 4728.  
 
-📂 *YAML files included in `Elastic-Rules/` folder*
+
 
 ---
 
 ## Dashboards
-
 **Prebuilt & Custom Dashboards:**
-- Authentication Overview → failed/successful logins
+- User Logon Info → administrator & user logons, failed logins
 - Windows Security → RDP & SSH events
-- Malware Dashboard → EICAR & other alerts
-- Privilege Escalation → group/user changes
+- Logon Sources → network vs interactive logins, source IPs
+- Logon Timeline → logon events per 10 minutes
+<img width="1600" height="801" alt="image" src="https://github.com/user-attachments/assets/bb76e720-c87d-4ff1-8bab-d519e811b214" />
 
-📸 *Include screenshots in `Kibana-Dashboards/`*
 
 ---
 
@@ -115,6 +146,8 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 - Incident workflow documentation
 - SOC workflow: Detect → Investigate → Respond → Document
 - Understanding of brute-force attacks, malware detection, privilege escalation, and lateral movement
+
+  
 
 ---
 
@@ -134,4 +167,6 @@ This lab shows end-to-end SOC capabilities:
 4. Build dashboards and detection rules
 5. Demonstrate advanced SOC knowledge for hiring managers
 6. <img width="955" height="562" alt="image" src="https://github.com/user-attachments/assets/08d068e6-ce20-44d5-b4f5-791d87487a8a" />
+<img width="711" height="448" alt="image" src="https://github.com/user-attachments/assets/27f10842-f4a4-4d9c-9ffd-8b51313bac8c" />
+
 
