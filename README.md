@@ -90,11 +90,12 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 
 ### 6. Lateral Movement
-- **Steps:** Simulate remote PowerShell login to Windows target.
-- **Elastic Detection:** Event IDs 4624 (logon), 4688 (process creation).
-📸 *Insert screenshot*
+- **Steps:** Simulate remote PowerShell login from Kali Linux to Windows Server 2022 target using evil-winrm  `evil-winrm -i 10.0.0.6 -u Administrator -p 'Password123'`
+- **Elastic Detection:** Event IDs 4624 (Successfull logon), 4688 (process creation).
+  - **Outcome:** Elastic dashboards capture remote login and process execution, demonstrating detection of lateral movement in a SOC environment.
 
-### 3. Threat Hunting –  Elastic Detection 
+
+### 7. Threat Hunting –  Elastic Detection 
 - **Detection Logic:** Multiple failed SSH login attempts from the same source IP ('source.ip') within a short time frame.
    - **KQL Query:** `event.action: "logon-failed" AND winlog.event_id: 4625`
    - **Detection Rule:** Threshold ≥ 5 failed SSH login attempts in 5 minutes from the same source IP.
@@ -179,12 +180,16 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 ---
 
 ## Skills Demonstrated
+- Network Architecture & Segmentation
 - SIEM detection engineering (KQL)
 - Log correlation across Windows/Linux hosts
 - Build dashboards and detection rules
-- Incident workflow documentation
+- Network Security & Containment
+- Incident Detection & Response
+- workflow documentation
+- Knowledge of Security Frameworks
 - SOC workflow: Detect → Investigate → Respond → Document
-- Understanding of brute-force attacks, malware detection, privilege escalation, and lateral movement
+- Understanding of Attacks, Brute-force attacks, malware detection, privilege escalation, and lateral movement
 
   
 
