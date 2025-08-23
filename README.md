@@ -52,7 +52,7 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 ## Attack Simulations
 
 ### 1. SSH Brute Force
-- **Command:** `hydra -l Administrator -P ./passlist.txt ssh://10.0.0.6`
+- **Command:** `hydra -t 4 -V -l Administrator -P ./passlist.txt rdp://10.0.0.6`
 - **Outcome:** Multiple failed SSH login attempts generated authentication logs and were detected in Elastic SIEM.
   <img width="1076" height="493" alt="image" src="https://github.com/user-attachments/assets/0aa0ff96-e44e-4f9c-b84f-a2a42717e730" />
 
@@ -76,25 +76,42 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 - **Integrations Used:** Elastic Agent, Elastic Defend, Fleet Server, Prebuilt Security Detection Rules, Elastic Synthetics
 *<img width="1079" height="532" alt="image" src="https://github.com/user-attachments/assets/a18c6d05-f881-4778-be45-eef47eb048f6" />*
 
-### 5. Privilege Escalation
-- **Steps:** A standard user account (testuser) was added to the Administrators group on the Windows Server, simulating privilege escalation by an attacker.
-- Observed Event IDs:
+
+### 5. Privilege Escalation – AD User Creation
+
+**Action Taken:**  
+- Logged into Windows Server 2022 via Evil-WinRM as `secmode\administrator`.  
+- Verified domain membership: `sec.mode.IT`.  
+- Executed `Creatuser.ps1` to create a new Active Directory user `JDOE` with administrative privileges.
+
+**Event Viewer Evidence:**  
+- **Event ID 4720:** User account created (`JDOE`).  
+- **Event ID 4728:** User added to security-enabled global group (Administrators).  
+- **Event ID 4672:** Special privileges assigned to a logon session.
+
+**MITRE ATT&CK Mapping:**  
+- **T1078 – Valid Accounts**  
+- **T1136 – Create Account**
+<img width="1059" height="643" alt="image" src="https://github.com/user-attachments/assets/6da647c0-62a8-47ac-8dea-242130014e08" />
+<img width="1321" height="1021" alt="image" src="https://github.com/user-attachments/assets/36fa81f1-5193-447d-a6db-29f55ad76d06" />
+
+- **Elastic Detection:** Correlation rules and dashboards in Elastic SIEM captured the privilege escalation by mapping the sequence of logon events, assignment of special privileges, and group membership changes, .
+<img width="1902" height="575" alt="image" src="https://github.com/user-attachments/assets/00c18ce8-f6d7-4081-b840-acd839e3d43f" />
+
+
+
+
+### 6. Observed Event IDs:
   - 4624 – Successful logon (tracking the session used for escalation)
   - 4672 – Special privileges assigned to new logon (indicates elevated rights)
   - 4634 – Logoff event (previous session closed before escalation attempt)
   - 4648 – Logon with explicit credentials (often seen during escalation attempts)
   - 4728 – A member was added to a security-enabled global group (if you added to “Administrators” group)
   - 4720 – New user account created (if you tested creating an account first)
-- **Elastic Detection:** Correlation rules and dashboards in Elastic SIEM captured the privilege escalation by mapping the sequence of logon events, assignment of special privileges, and group membership changes, .
 <img width="1075" height="500" alt="image" src="https://github.com/user-attachments/assets/a45eba50-0722-4592-a702-0be1306b204b" />
 
 
-### 6. Lateral Movement
-- **Steps:** Simulate remote PowerShell login from Kali Linux to Windows Server 2022 target using evil-winrm  `evil-winrm -i 10.0.0.6 -u Administrator -p 'Password123'`
-- **Elastic Detection:** Event IDs 4624 (Successfull logon), 4688 (process creation).
-  - **Outcome:** Elastic dashboards capture remote login and process execution, demonstrating detection of lateral movement in a SOC environment.
-
-
+---
 ### 7. Threat Hunting –  Elastic Detection 
 - **Detection Logic:** Multiple failed SSH login attempts from the same source IP ('source.ip') within a short time frame.
    - **KQL Query:** `event.action: "logon-failed" AND winlog.event_id: 4625`
