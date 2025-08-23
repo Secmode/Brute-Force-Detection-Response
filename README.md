@@ -40,24 +40,19 @@ The lab covers a wide range of security operations tasks, including:
 
 ## Attack Simulations
 
-###  SSH Brute Force
-- **Command:** `hydra -t 4 -V -l Administrator -P ./passlist.txt rdp://10.0.0.6`
-- **Outcome:** Multiple failed SSH login attempts generated authentication logs and were detected in Elastic SIEM.
-  <img width="1076" height="493" alt="image" src="https://github.com/user-attachments/assets/0aa0ff96-e44e-4f9c-b84f-a2a42717e730" />
-
-
-
 
 ###  RDP Brute Force
 - **Command:** `hydra -l Administrator -P ./passlist.txt rdp://10.0.0.6`
 - **Observed Event IDs:** `4625 – Failed logon (multiple failed RDP attempts)`
-- **Outcome:** Elastic correlation rule flagged brute-force behavior. (Event ID 4625).
+- **Outcome:**  Multiple failed SSH login attempts generated authentication logs and were detected in Elastic SIEM.. (Event ID 4625).
 <img width="1073" height="508" alt="image" src="https://github.com/user-attachments/assets/622653c3-fb74-4338-8373-40191759ae0c" />
 
 ###  Successful SSH Login via Brute-Force
 - **Command:** `hydra -l Administrator -P ./passlist.txt ssh://10.0.0.6`
-- **Outcome:** Outcome: Password cyber!2025- found; login successful. Confirmed in Kibana.
+- **Outcome:** Correlation rules flagged brute force activity. Confirmed in Kibana.
+- **Detection**: Confirmed in Kibana (4624, system.auth.ssh.event: Accepted).
 <img width="1077" height="679" alt="image" src="https://github.com/user-attachments/assets/c4c4b7b4-8277-4224-96f1-24c606c0a34c" />
+ <img width="1076" height="493" alt="image" src="https://github.com/user-attachments/assets/0aa0ff96-e44e-4f9c-b84f-a2a42717e730" />
 
 
 ###  Elastic Integrations Setup
@@ -69,9 +64,9 @@ The lab covers a wide range of security operations tasks, including:
 ###  Privilege Escalation – AD User Creation
 
 **Action Taken:**  
-- Logged into Windows Server 2022 via Evil-WinRM as `secmode\administrator`.  
+- Logged in via Evil-WinRM as `SECMODE\Administrator`
 - Verified domain membership: `sec.mode.IT`.  
-- Executed `Creatuser.ps1` to create a new Active Directory user `JDOE` with administrative privileges.
+- Executed `Creatuser.ps1` → Created `JDOE` with administrative privileges.
 
 
 <img width="1059" height="643" alt="image" src="https://github.com/user-attachments/assets/6da647c0-62a8-47ac-8dea-242130014e08" />
@@ -96,7 +91,10 @@ The lab covers a wide range of security operations tasks, including:
 ---
 ### 7. Threat Hunting –  Elastic Detection And Event Viewer
 - **Detection Logic:** Multiple failed SSH login attempts from the same source IP ('source.ip') within a short time frame.
-   - **KQL Query:** `event.action: "logon-failed" AND winlog.event_id: 4625`
+   - **KQL Query:** `event.module: "windows" and winlog.event_id: 4625 and winlog.logon.type: 10
+| stats count() by source.ip, user.name, host.name, bin(@timestamp, 5m)
+| where count >= 5
+`
    - **Detection Rule:** Threshold ≥ 5 failed SSH login attempts in 5 minutes from the same source IP.
    - **Outcome:** Identified suspicious brute force attempts against account root from attacker IP `10.0.0.7 (Kali Linux).`
    - Logs confirm repeated logon-failed actions on host WIN-DHNT661G6BP.
@@ -145,9 +143,13 @@ The lab covers a wide range of security operations tasks, including:
 
 ---
 ## Applying NIST Incident Response Lifecycle
-  **Detection & Analysis**
- - Rules were triggered
- - Alerts were generated
+ **Preparation - Detection & Analysis - Containment - Eradication & Recovery -Post-Incident (Lessons Learned)**
+
+ **Preparation:** Configured Sysmon + Elastic Agent - Snapshots & backup policies
+ 
+ **Detection & Analysis** 
+ - SIEM Rules were triggered
+ - Alerts generated for brute force + privilege escalation
 - Analyst observes and interprets what happened.
  
  <img width="1907" height="874" alt="Screenshot 2025-08-22 224708" src="https://github.com/user-attachments/assets/a484003e-1054-4b2f-a2ec-24fa4c36fd41" />
@@ -160,9 +162,10 @@ The lab covers a wide range of security operations tasks, including:
   Blocked SSH/RDP brute-force IP (`10.0.0.7`) 
 
   <img width="1327" height="913" alt="dddd" src="https://github.com/user-attachments/assets/a9615087-5425-4360-888c-9d3b042d2d76" />
+  
 
-- **Disable accounts**
-(`JDOE`)
+- **Disable accounts:** (`JDOE`)
+
 <img width="940" height="769" alt="image" src="https://github.com/user-attachments/assets/fdd0b3d7-5094-484a-b4bc-9767bb0e5990" />
 
 
@@ -173,7 +176,11 @@ The lab covers a wide range of security operations tasks, including:
   - Ensured Elastic SIEM configurations and pfSense firewall rules were backed up for recovery.  
 
 
-
+- **Post-Incident (Lessons Learned)**
+  - Added MFA for RDP
+  - Enabled account lockout policy
+  - Tuned Elastic rules to reduce noise
+  - system update 
 ---
 
 ---
