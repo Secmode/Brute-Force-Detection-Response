@@ -76,8 +76,6 @@ The lab covers a wide range of security operations tasks, including:
 <img width="1902" height="575" alt="image" src="https://github.com/user-attachments/assets/00c18ce8-f6d7-4081-b840-acd839e3d43f" />
 
 
-
-
 ###  Observed Event IDs:
   - 4624 – Successful logon 
   - 4672 – Special privileges assigned to new logon 
@@ -139,8 +137,6 @@ The lab covers a wide range of security operations tasks, including:
 
 
 
-
-
 ---
 ## Applying NIST Incident Response Lifecycle
  **Preparation - Detection & Analysis - Containment - Eradication & Recovery -Post-Incident (Lessons Learned)**
@@ -165,12 +161,10 @@ The lab covers a wide range of security operations tasks, including:
   
 
 - **Disable accounts:** (`JDOE`)
-
 <img width="940" height="769" alt="image" src="https://github.com/user-attachments/assets/fdd0b3d7-5094-484a-b4bc-9767bb0e5990" />
 
 
-  
-- **patch systems, Backup & Snapshots:**  
+  - **patch systems, Backup & Snapshots:**  
   - Create VM snapshots to revert compromised systems to a clean state.
   - Preserve backed-up SIEM logs as evidence for post-incident forensics. 
   - Ensured Elastic SIEM configurations and pfSense firewall rules were backed up for recovery.  
@@ -184,7 +178,6 @@ The lab covers a wide range of security operations tasks, including:
 ---
 
 ---
-
 ## Dashboards
 **Prebuilt & Custom Dashboards:**
 - User Logon Info → administrator & user logons, failed logins
@@ -207,16 +200,9 @@ The lab covers a wide range of security operations tasks, including:
 - Knowledge of Security Frameworks
 - SOC workflow: Detect → Investigate → Respond → Document
 - Understanding of Attacks, Brute-force attacks, malware detection, privilege escalation, and lateral movement
-
-  
-
 ---
-
 ## Recovery 
   - Restoring from backups or snapshots, patching systems, resetting accounts, and returning operations to normal.
-
-
-<img width="955" height="562" alt="image" src="https://github.com/user-attachments/assets/08d068e6-ce20-44d5-b4f5-791d87487a8a" />
-<img width="711" height="448" alt="image" src="https://github.com/user-attachments/assets/27f10842-f4a4-4d9c-9ffd-8b51313bac8c" />
+<img width="738" height="431" alt="image" src="https://github.com/user-attachments/assets/60af56db-219e-4054-b008-7048a4303fe7" />
 
 
