@@ -156,8 +156,7 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 - **Blocked Malicious IP:**  
   Blocked SSH/RDP brute-force IP (`10.0.0.7`) in pfSense firewall to protect Windows Server (`10.0.0.6`), fulfilling MITRE T1110.001 containment recommendations.
   
-  <img width="1903" height="908" alt="image" src="https://github.com/user-attachments/assets/438931e5-b9d0-44d6-807b-cabd9977ce88" />
-
+<img width="1327" height="913" alt="dddd" src="https://github.com/user-attachments/assets/a9615087-5425-4360-888c-9d3b042d2d76" />
 
 
 
