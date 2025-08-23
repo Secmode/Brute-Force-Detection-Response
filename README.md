@@ -5,27 +5,26 @@ This project is a **hands-on SOC lab** demonstrating **Brute Force Attack Detect
 
 
 The lab covers a wide range of security operations tasks, including:
-<p float="left"> <code>Networking Architecture</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Active Directory</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Brute-force attacks</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Failed login analysis</code> <br> <code>Privilege escalation</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Dashboards & detection rules</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>SIEM use cases</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>KQL Queries & Scripting</code> <br> <code>Incident Response & Containment</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>pfSense Configuration</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Patching</code> </p>
-  
+<p float="left"> <code>Networking Architecture</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Brute-force attacks</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Active Directory</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Failed login analysis</code> <br> <code>Privilege escalation</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Dashboards & detection rules</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>SIEM use cases</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>KQL Queries & Scripting</code> <br> <code>Incident Response & Containment</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>pfSense Configuration</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Patching</code> </p>
 
-This lab is designed to **showcase My SOC skills** Which including detection engineering, log correlation, incident analysis, and workflow documentation.
 
 ---
 
-## Lab Archtitecture
+## Lab Network Archtitecture
 
 | Component | Role | IP |
 |-----------|------|----|
-|Pfsen |LAN,(Eth1) DHCP Managment, Isolated Lab network |10.0.0.1/24 |
+|Pfsense |LAN,(Eth1) DHCP Managment, Isolated Lab network |10.0.0.1/24 |
 | Kali Linux | Simulated adversary behavior brute force Attempts | 10.0.0.7 |
-| Windows Server 2022 | Domain Controller and RDP Target Machine| 10.0.0.6 |
-| Ubuntu Server 1 | Fleet Server (Elastic Agent management) | 10.0.0.4 |
-| Ubuntu Server 2 | ELK Stack (ElasticSearch, Logstash, Kibana) Centralized log collection and SIEM analytic| 10.0.0.5 |
-|SocAnalyst |Kibana Visualization, Alert, Case, Monitor | 10.0.0.2 |
+| Windows Server 2022 | Domain Controller and Target Machine| 10.0.0.6 |
+| Ubuntu Server 1 | Fleet Server | 10.0.0.5 |
+| Ubuntu Server 2 | ELK Stack (ElasticSearch, Logstash, Kibana) Centralized log collection | 10.0.0.4 |
+|SocAnalyst |SIEM analytic, Kibana Visualization, Alert, Case, Monitor | 10.0.0.2 |
 
-**Tools Used:** Hydra, xfreerdp, Elastic Agent, Pfsense, Winlogbeat, Kibana Dashboards, Elastic Defender, Sysmon.
+**Tools Used:** Hydra, xfreerdp,Evil-winrm, Elastic Agent, Pfsense, Winlogbeat, Kibana Dashboards, Elastic Defender, Sysmon.
 
-<img width="992" height="702" alt="image" src="https://github.com/user-attachments/assets/7d73cc16-f8f7-407a-a090-dd9c37a5555a" />
+<img width="986" height="737" alt="image" src="https://github.com/user-attachments/assets/529967e4-9ce9-44b1-9c22-1c0852a418b8" />
+
 
 <p float="left">
   <img src="https://github.com/user-attachments/assets/05b176ea-d624-4a8c-b078-7054c76a878a" width="400" />
@@ -41,7 +40,7 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 ## Attack Simulations
 
-### 1. SSH Brute Force
+###  SSH Brute Force
 - **Command:** `hydra -t 4 -V -l Administrator -P ./passlist.txt rdp://10.0.0.6`
 - **Outcome:** Multiple failed SSH login attempts generated authentication logs and were detected in Elastic SIEM.
   <img width="1076" height="493" alt="image" src="https://github.com/user-attachments/assets/0aa0ff96-e44e-4f9c-b84f-a2a42717e730" />
@@ -49,25 +48,25 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 
 
-### 2. RDP Brute Force
+###  RDP Brute Force
 - **Command:** `hydra -l Administrator -P ./passlist.txt rdp://10.0.0.6`
 - **Observed Event IDs:** `4625 – Failed logon (multiple failed RDP attempts)`
 - **Outcome:** Elastic correlation rule flagged brute-force behavior. (Event ID 4625).
 <img width="1073" height="508" alt="image" src="https://github.com/user-attachments/assets/622653c3-fb74-4338-8373-40191759ae0c" />
 
-### 3. Successful SSH Login via Brute-Force
+###  Successful SSH Login via Brute-Force
 - **Command:** `hydra -l Administrator -P ./passlist.txt ssh://10.0.0.6`
 - **Outcome:** Outcome: Password cyber!2025- found; login successful. Confirmed in Kibana.
 <img width="1077" height="679" alt="image" src="https://github.com/user-attachments/assets/c4c4b7b4-8277-4224-96f1-24c606c0a34c" />
 
 
-### 4. Elastic Integrations Setup
+###  Elastic Integrations Setup
 - **Steps:** Installed and configured Elastic integrations to collect logs and telemetry from endpoints and servers..
 - **Integrations Used:** Elastic Agent, Elastic Defend, Fleet Server, Prebuilt Security Detection Rules, Elastic Synthetics
 *<img width="1079" height="532" alt="image" src="https://github.com/user-attachments/assets/a18c6d05-f881-4778-be45-eef47eb048f6" />*
 
 
-### 5. Privilege Escalation – AD User Creation
+###  Privilege Escalation – AD User Creation
 
 **Action Taken:**  
 - Logged into Windows Server 2022 via Evil-WinRM as `secmode\administrator`.  
@@ -84,13 +83,13 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 
 
-### 6. Observed Event IDs:
-  - 4624 – Successful logon (tracking the session used for escalation)
-  - 4672 – Special privileges assigned to new logon (indicates elevated rights)
-  - 4634 – Logoff event (previous session closed before escalation attempt)
-  - 4648 – Logon with explicit credentials (often seen during escalation attempts)
-  - 4728 – A member was added to a security-enabled global group (if you added to “Administrators” group)
-  - 4720 – New user account created (if you tested creating an account first)
+###  Observed Event IDs:
+  - 4624 – Successful logon 
+  - 4672 – Special privileges assigned to new logon 
+  - 4634 – Logoff event 
+  - 4648 – Logon with explicit credentials 
+  - 4728 – A member was added to a security-enabled global group 
+  - 4720 – New user account created 
 <img width="1075" height="500" alt="image" src="https://github.com/user-attachments/assets/a45eba50-0722-4592-a702-0be1306b204b" />
 
 
@@ -107,20 +106,16 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
   <img src="https://github.com/user-attachments/assets/1b06fdcb-be9f-40a7-8c44-1b2895eb4d8b" width="300" />
   <img src="https://github.com/user-attachments/assets/413c89f3-1a8a-4780-98b0-8a4e5aa6a736" width="300" />
 </p>
-
+<img width="970" height="435" alt="image" src="https://github.com/user-attachments/assets/efe479e3-a4f7-43e5-a1b3-ecb6812dd72c" />
 
 **Event Viewer Evidence:**  
 - **Event ID 4720:** User account created (`JDOE`).  
 - **Event ID 4728:** User added to security-enabled global group (Administrators).  
 - **Event ID 4672:** Special privileges assigned to a logon session.
 
-**MITRE ATT&CK Mapping:**  
-- **T1078 – Valid Accounts**  
-- **T1136 – Create Account**
 <img width="1568" height="948" alt="image" src="https://github.com/user-attachments/assets/5d942563-fa22-47d5-ac9b-75a11cea63c5" />
 
 
-<img width="970" height="435" alt="image" src="https://github.com/user-attachments/assets/efe479e3-a4f7-43e5-a1b3-ecb6812dd72c" />
 
 ---
 ### MITRE ATT&CK Mapping  
@@ -149,33 +144,31 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 
 ---
-## Incident Response – pfSense Firewall Actions
+## Applying NIST Incident Response Lifecycle
+  **Detection & Analysis**
+ - Rules were triggered
+ - Alerts were generated
+- Analyst observes and interprets what happened.
+ 
+ <img width="1907" height="874" alt="Screenshot 2025-08-22 224708" src="https://github.com/user-attachments/assets/a484003e-1054-4b2f-a2ec-24fa4c36fd41" />
 
-**Action Taken (Containment & Mitigation):**
+ 
+---
+## Action Taken: Containment, Eradication & Recovery
 
 - **Blocked Malicious IP:**  
-  Blocked SSH/RDP brute-force IP (`10.0.0.7`) in pfSense firewall to protect Windows Server (`10.0.0.6`), fulfilling MITRE T1110.001 containment recommendations.
+  Blocked SSH/RDP brute-force IP (`10.0.0.7`) 
+
+  <img width="1327" height="913" alt="dddd" src="https://github.com/user-attachments/assets/a9615087-5425-4360-888c-9d3b042d2d76" />
+
+- **Disable accounts**
+(`JDOE`)
   
-<img width="1327" height="913" alt="dddd" src="https://github.com/user-attachments/assets/a9615087-5425-4360-888c-9d3b042d2d76" />
+- **patch systems, Backup & Snapshots:**  
+  - Create VM snapshots to revert compromised systems to a clean state.
+  - Preserve backed-up SIEM logs as evidence for post-incident forensics. 
+  - Ensured Elastic SIEM configurations and pfSense firewall rules were backed up for recovery.  
 
-
-
-- **Subnet / Range Blocking:**  
-  Temporarily blocked suspicious IP ranges within LAN (`10.0.0.2 – 10.0.0.20`) to prevent lateral movement.
-- **Rate Limiting / Login Thresholds:**  
-  Configured pfSense to limit repeated SSH/RDP login attempts, preventing automated brute-force attacks.
-- **Port/Service Filtering:**  
-  Closed unused ports and limited critical services to trusted IPs only.
-- **Firewall Aliases for Threat Automation:**  
-  Created alias lists of known malicious IPs from Elastic SIEM to auto-block future attacks.
-- **Logging & Alerts:**  
-  Enabled detailed logging and alert notifications for all blocked connections for forensic analysis.
-- **Temporary Blocks & Quarantine:**  
-  Applied scheduled blocks for suspicious IPs, lifting automatically if no further attacks detected.
-- **Network Segmentation:**  
-  Isolated vulnerable Windows hosts using VLAN rules to contain potential compromises.
-- **Geo-IP Blocking:**  
-  Restricted access from regions not required for operations, reducing attack surface.
 
 
 ---
@@ -209,12 +202,9 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 ---
 
-## Next Steps
--Currently working on the PFsense Firewall
-<img width="1821" height="660" alt="image" src="https://github.com/user-attachments/assets/11a8b178-f273-4579-bf81-695d66b9753c" />
+## Restoration = Recovery phase
+  - Restoring from backups or snapshots, patching systems, resetting accounts, and returning operations to normal.
 
-
----
 
 6. <img width="955" height="562" alt="image" src="https://github.com/user-attachments/assets/08d068e6-ce20-44d5-b4f5-791d87487a8a" />
 <img width="711" height="448" alt="image" src="https://github.com/user-attachments/assets/27f10842-f4a4-4d9c-9ffd-8b51313bac8c" />
