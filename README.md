@@ -10,18 +10,18 @@ The lab covers a wide range of security operations tasks, including:
 
 ---
 
-## Lab Network Archtitecture
+## Lab Network Architecture
 
 | Component | Role | IP |
 |-----------|------|----|
 |Pfsense |LAN,(Eth1) DHCP Managment, Isolated Lab network |10.0.0.1/24 |
-| Kali Linux | Simulated adversary behavior brute force Attempts | 10.0.0.7 |
-| Windows Server 2022 | Domain Controller and Target Machine| 10.0.0.6 |
-| Ubuntu Server 1 | Fleet Server | 10.0.0.5 |
-| Ubuntu Server 2 | ELK Stack (ElasticSearch, Logstash, Kibana) Centralized log collection | 10.0.0.4 |
-|SocAnalyst |SIEM analytic, Kibana Visualization, Alert, Case, Monitor | 10.0.0.2 |
+| Kali Linux | Simulated adversary behavior brute force Attempts | 10.0.0.7/24 |
+| Windows Server 2022 | Domain Controller and Target Machine| 10.0.0.6/24 |
+| Ubuntu Server 1 | Fleet Server | 10.0.0.5/24 |
+| Ubuntu Server 2 | ELK Stack (ElasticSearch, Logstash, Kibana) Centralized log collection | 10.0.0.4/24 |
+|SocAnalyst |SIEM analytic, Kibana Visualization, Alert, Case, Monitor | 10.0.0.2/24 |
 
-**Tools Used:** Hydra, xfreerdp,Evil-winrm, Elastic Agent, Pfsense, Winlogbeat, Kibana Dashboards, Elastic Defender, Sysmon.
+**Tools Used:** Hydra, xfreerdp,Evil-winrm, Elastic Agent, Elastic Defend, Sysmon, Fleet Server, Kibana..
 
 <img width="986" height="737" alt="image" src="https://github.com/user-attachments/assets/529967e4-9ce9-44b1-9c22-1c0852a418b8" />
 
@@ -163,6 +163,9 @@ The lab covers a wide range of security operations tasks, including:
 
 - **Disable accounts**
 (`JDOE`)
+<img width="940" height="769" alt="image" src="https://github.com/user-attachments/assets/fdd0b3d7-5094-484a-b4bc-9767bb0e5990" />
+
+
   
 - **patch systems, Backup & Snapshots:**  
   - Create VM snapshots to revert compromised systems to a clean state.
@@ -202,7 +205,7 @@ The lab covers a wide range of security operations tasks, including:
 
 ---
 
-## Restoration = Recovery phase
+## Recovery 
   - Restoring from backups or snapshots, patching systems, resetting accounts, and returning operations to normal.
 
 
