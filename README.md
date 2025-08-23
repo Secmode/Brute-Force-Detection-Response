@@ -1,21 +1,11 @@
 # Brute-Force-Detection-Response
 Elastic SIEM SOC Lab – Brute Force Attack Detection &amp; Response using Windows Server,Pfsense, Kali, and Ubuntu
 ## Overview
-This Project contains a **hands-on SOC lab** built using Elastic SIEM, Windows Server 2022, Kali Linux, Pfsense, and Ubuntu servers. It demonstrates **realistic attack scenarios**, detection rules, dashboards, and incident workflow documentation.
+This project is a **hands-on SOC lab** demonstrating **Brute Force Attack Detection & Response** using **Windows Server 2022, Kali Linux, pfSense, and Ubuntu servers** with Elastic SIEM. It simulates realistic attack scenarios, detection rules, dashboards, and incident response workflows to showcase **practical SOC skills**.
 
-The lab covers:
-- Networking Architecture (VM design, pfSense, segmentation)
-- Brute-force attacks (SSH & RDP) (simulated adversary TTPs)
-- Failed login analysis (Event ID 4625, Linux auth logs)
-- Successful login analysis (Event ID 4624, Linux auth logs)
-- Privilege escalation (simulated local admin / sudo abuse)
-- Lateral movement (moving from one machine to another)
-- Dashboards & detection rules (Elastic SIEM use cases)
-- KQL Queries & Scripting (custom queries, automation scripts)
-- PfSense Configuration (Incident Response & Containment)
-  - Blocking malicious IPs
-  - Isolating compromised hosts
-- Patching (remediation on Windows/Linux clients)
+
+The lab covers a wide range of security operations tasks, including:
+<p float="left"> <code>Networking Architecture</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Active Directory</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Brute-force attacks</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Failed login analysis</code> <br> <code>Privilege escalation</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Dashboards & detection rules</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>SIEM use cases</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>KQL Queries & Scripting</code> <br> <code>Incident Response & Containment</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>pfSense Configuration</code> &nbsp;&nbsp; | &nbsp;&nbsp; <code>Patching</code> </p>
   
 
 This lab is designed to **showcase My SOC skills** Which including detection engineering, log correlation, incident analysis, and workflow documentation.
@@ -84,14 +74,7 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 - Verified domain membership: `sec.mode.IT`.  
 - Executed `Creatuser.ps1` to create a new Active Directory user `JDOE` with administrative privileges.
 
-**Event Viewer Evidence:**  
-- **Event ID 4720:** User account created (`JDOE`).  
-- **Event ID 4728:** User added to security-enabled global group (Administrators).  
-- **Event ID 4672:** Special privileges assigned to a logon session.
 
-**MITRE ATT&CK Mapping:**  
-- **T1078 – Valid Accounts**  
-- **T1136 – Create Account**
 <img width="1059" height="643" alt="image" src="https://github.com/user-attachments/assets/6da647c0-62a8-47ac-8dea-242130014e08" />
 <img width="1321" height="1021" alt="image" src="https://github.com/user-attachments/assets/36fa81f1-5193-447d-a6db-29f55ad76d06" />
 
@@ -112,7 +95,7 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 
 ---
-### 7. Threat Hunting –  Elastic Detection 
+### 7. Threat Hunting –  Elastic Detection And Event Viewer
 - **Detection Logic:** Multiple failed SSH login attempts from the same source IP ('source.ip') within a short time frame.
    - **KQL Query:** `event.action: "logon-failed" AND winlog.event_id: 4625`
    - **Detection Rule:** Threshold ≥ 5 failed SSH login attempts in 5 minutes from the same source IP.
@@ -125,6 +108,16 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
   <img src="https://github.com/user-attachments/assets/413c89f3-1a8a-4780-98b0-8a4e5aa6a736" width="300" />
 </p>
 
+
+**Event Viewer Evidence:**  
+- **Event ID 4720:** User account created (`JDOE`).  
+- **Event ID 4728:** User added to security-enabled global group (Administrators).  
+- **Event ID 4672:** Special privileges assigned to a logon session.
+
+**MITRE ATT&CK Mapping:**  
+- **T1078 – Valid Accounts**  
+- **T1136 – Create Account**
+<img width="1568" height="948" alt="image" src="https://github.com/user-attachments/assets/5d942563-fa22-47d5-ac9b-75a11cea63c5" />
 
 
 <img width="970" height="435" alt="image" src="https://github.com/user-attachments/assets/efe479e3-a4f7-43e5-a1b3-ecb6812dd72c" />
@@ -214,6 +207,8 @@ This lab is designed to **showcase My SOC skills** Which including detection eng
 
 ## Next Steps
 -Currently working on the PFsense Firewall
+<img width="1821" height="660" alt="image" src="https://github.com/user-attachments/assets/11a8b178-f273-4579-bf81-695d66b9753c" />
+
 
 ---
 
