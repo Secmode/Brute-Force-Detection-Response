@@ -89,7 +89,7 @@ The lab covers a wide range of security operations tasks, including:
 
 
 ---
-### 7. Threat Hunting –  Elastic Detection And Event Viewer
+###  Threat Hunting –  Elastic Detection And Event Viewer
 - **Detection Logic:** Multiple failed SSH login attempts from the same source IP ('source.ip') within a short time frame.
    - **KQL Query:** `event.module: "windows" and winlog.event_id: 4625 and winlog.logon.type: 10
 | stats count() by source.ip, user.name, host.name, bin(@timestamp, 5m)
@@ -216,7 +216,7 @@ The lab covers a wide range of security operations tasks, including:
   - Restoring from backups or snapshots, patching systems, resetting accounts, and returning operations to normal.
 
 
-6. <img width="955" height="562" alt="image" src="https://github.com/user-attachments/assets/08d068e6-ce20-44d5-b4f5-791d87487a8a" />
+<img width="955" height="562" alt="image" src="https://github.com/user-attachments/assets/08d068e6-ce20-44d5-b4f5-791d87487a8a" />
 <img width="711" height="448" alt="image" src="https://github.com/user-attachments/assets/27f10842-f4a4-4d9c-9ffd-8b51313bac8c" />
 
 
