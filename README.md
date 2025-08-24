@@ -26,7 +26,6 @@ The lab covers a wide range of security operations tasks, including:
 **Tools Used:** Hydra, xfreerdp,Evil-winrm, Elastic Agent, Elastic Defend, Sysmon, Fleet Server, Kibana..
 
 <img width="986" height="737" alt="image" src="https://github.com/user-attachments/assets/529967e4-9ce9-44b1-9c22-1c0852a418b8" />
-<img width="1912" height="922" alt="Screenshot 2025-08-17 214208" src="https://github.com/user-attachments/assets/56b5b235-f5eb-4218-aa81-8209596a1934" />
 
 
 
