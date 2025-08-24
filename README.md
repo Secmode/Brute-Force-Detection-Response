@@ -1,5 +1,7 @@
 # Elastic SIEM SOC Lab
 Brute Force Attack Detection &amp; Response using Elasticsearch, KQL, Windows Server,Pfsense, Kali, and Ubuntu
+<img width="1881" height="1051" alt="Screenshot 2025-08-17 205825" src="https://github.com/user-attachments/assets/38e63191-0937-480f-8023-a431de1af526" />
+
 ## Overview
 This project is a **hands-on SOC lab** demonstrating **Brute Force Attack Detection & Response** using **Windows Server 2022, Kali Linux, pfSense, and Ubuntu servers** with **Elastic SIEM.** It simulates realistic attack scenarios, detection rules, dashboards, and incident response workflows to showcase **practical SOC skills**.
 
@@ -24,6 +26,8 @@ The lab covers a wide range of security operations tasks, including:
 **Tools Used:** Hydra, xfreerdp,Evil-winrm, Elastic Agent, Elastic Defend, Sysmon, Fleet Server, Kibana..
 
 <img width="986" height="737" alt="image" src="https://github.com/user-attachments/assets/529967e4-9ce9-44b1-9c22-1c0852a418b8" />
+<img width="1912" height="922" alt="Screenshot 2025-08-17 214208" src="https://github.com/user-attachments/assets/56b5b235-f5eb-4218-aa81-8209596a1934" />
+
 
 
 <p float="left">
@@ -97,11 +101,10 @@ The lab covers a wide range of security operations tasks, including:
    - **Outcome:** Identified suspicious brute force attempts against account root from attacker IP `10.0.0.7 (Kali Linux).`
    - Logs confirm repeated logon-failed actions on host WIN-DHNT661G6BP.
      - **SOC Use Case:** Helps analysts hunt brute force attempts that bypass normal authentication rules and confirm malicious login activity
-<p float="left">
-  <img src="https://github.com/user-attachments/assets/f77d8cad-3563-4ef5-aecc-0c7a3c80f998" width="300" />
-  <img src="https://github.com/user-attachments/assets/1b06fdcb-be9f-40a7-8c44-1b2895eb4d8b" width="300" />
-  <img src="https://github.com/user-attachments/assets/413c89f3-1a8a-4780-98b0-8a4e5aa6a736" width="300" />
-</p>
+<img width="1907" height="1006" alt="alert generate" src="https://github.com/user-attachments/assets/c7aa9213-7afc-43e4-82b9-ce4b3272dcd8" />
+<img width="1846" height="855" alt="image" src="https://github.com/user-attachments/assets/6dccaec6-64af-4068-b7ae-9ba362de7f9c" />
+<img width="760" height="758" alt="check alert" src="https://github.com/user-attachments/assets/491b6063-5e25-4fe1-bfbb-3b27afc34d5f" />
+
 <img width="970" height="435" alt="image" src="https://github.com/user-attachments/assets/efe479e3-a4f7-43e5-a1b3-ecb6812dd72c" />
 
 **Event Viewer Evidence:**  
@@ -203,6 +206,7 @@ The lab covers a wide range of security operations tasks, including:
 ---
 ## Recovery 
   - Restoring from backups or snapshots, patching systems, resetting accounts, and returning operations to normal.
-<img width="738" height="431" alt="image" src="https://github.com/user-attachments/assets/60af56db-219e-4054-b008-7048a4303fe7" />
+<img width="970" height="676" alt="VMS" src="https://github.com/user-attachments/assets/743f06f6-65d4-4fad-a1e4-e19d8c0d9952" />
+
 
 
